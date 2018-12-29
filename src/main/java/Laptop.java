@@ -7,21 +7,13 @@ import java.util.List;
 
 @Entity
 public class Laptop {
+
     @Id
     private int lid;
-
-    private String lname;
-
-    @ManyToMany
-    private List<Student> student = new ArrayList<Student>();
-
-    public List<Student> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<Student> student) {
-        this.student = student;
-    }
+    private String brand;
+    private int price;
+    @ManyToOne
+    private Alien alien;
 
     public int getLid() {
         return lid;
@@ -31,11 +23,27 @@ public class Laptop {
         this.lid = lid;
     }
 
-    public String getLname() {
-        return lname;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Alien getAlien() {
+        return alien;
+    }
+
+    public void setAlien(Alien alien) {
+        this.alien = alien;
     }
 }

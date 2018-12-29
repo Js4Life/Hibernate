@@ -1,3 +1,4 @@
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -5,49 +6,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import java.util.Collection;
+
 public class main {
 
     public static void main(String[] args) {
 
-        System.out.println("hello");
 
-     //   Alien telusko = null;
-
-        AlienName an = new AlienName();
-
-        an.setFname("RaghavendraGowda");
-        an.setLname("Ashwin");
-        an.setMname("Sagir");
-
-        Alien telusko = new Alien();
-
-       telusko.setAid(101);
-      // telusko.setAname("Sarang");
-        telusko.setAname(an);
-        telusko.setColor("Green");
+    Alien a = null;
 
 
-        Laptop laptop = new Laptop();
-
-        laptop.setLid(101);
-        laptop.setLname("Dell");
-
-
-
-        Student s = new Student();
-
-        s.setName("Ashwin");
-        s.setRollno(1);
-        s.setMarks(50);
-       // s.setLaptop(laptop); for one to one
-
-        s.getLaptop().add(laptop);
-
-        laptop.getStudent().add(s);
-
-
-
-        Configuration con = new Configuration().configure().addAnnotatedClass(Student.class).addAnnotatedClass(Laptop.class);
+        Configuration con = new Configuration().configure().addAnnotatedClass(Laptop.class).addAnnotatedClass(Alien.class);
 
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
 
@@ -55,20 +24,49 @@ public class main {
 
         Session session = sf.openSession();
 
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
 
-     //   telusko = (Alien) session.get(Alien.class,104);
-
-      //  session.save(telusko);
-
-        session.save(laptop);
-        session.save(s);
-
-        tx.commit();
+        Query q1 = session.createQuery("from Alien where aid=101");
+        q1.setCacheable(true);
+        a = (Alien) q1.uniqueResult();
 
 
+        System.out.println(a);
 
-      //  System.out.println(telusko);
+// level 1 caching
+
+    //    a = (Alien) session.get(Alien.class,101) ;
+     //   System.out.println(a);
+        session.getTransaction().commit();
+        session.close();
+
+
+        Session session2 = sf.openSession();
+        session2.beginTransaction();
+        Query q2 = session2.createQuery("from Alien where aid=101");
+        q2.setCacheable(true);
+        a = (Alien) q2.uniqueResult();
+        System.out.println(a);
+
+    //    a = (Alien) session2.get(Alien.class,101) ;
+     //   System.out.println(a);
+        session2.getTransaction().commit();
+        session2.close();
+
+
+
+      //  Alien a1 = (Alien) session.get(Alien.class,1);
+
+    //    System.out.println(a1.getAname());
+
+//        Collection<Laptop> laps = a1.getLaps();
+//
+//        for (Laptop l:laps) {
+//            System.out.println(l);
+//        }
+
+
+
 
 
     }

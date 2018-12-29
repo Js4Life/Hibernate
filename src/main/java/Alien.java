@@ -1,19 +1,34 @@
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "alien_table")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Alien {
 
     @Id
     private int aid;
 
-//    @Transient
-  //  private String aname; // Thatipalli NavinKumarReddy Bap reddy
+    private String aname;
 
-    private AlienName aname;
-
-   // @Column(name = "alien_color")
     private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+
+
+//    @OneToMany(mappedBy = "alien",fetch = FetchType.EAGER)
+//    private Collection<Laptop> laps = new ArrayList<Laptop>();
 
 
     public int getAid() {
@@ -24,28 +39,19 @@ public class Alien {
         this.aid = aid;
     }
 
-    public AlienName getAname() {
+    public String getAname() {
         return aname;
     }
 
-    public void setAname(AlienName aname) {
+    public void setAname(String aname) {
         this.aname = aname;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return "Alien{" +
-                "aid=" + aid +
-                ", aname='" + aname + '\'' +
-                ", color='" + color + '\'' +
-                '}';
-    }
+//    public Collection<Laptop> getLaps() {
+//        return laps;
+//    }
+//
+//    public void setLaps(Collection<Laptop> laps) {
+//        this.laps = laps;
+//    }
 }
