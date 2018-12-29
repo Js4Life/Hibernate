@@ -28,6 +28,11 @@
             <artifactId>hibernate-ehcache</artifactId>
             <version>4.1.7.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.1</version>
+        </dependency>
     </dependencies>
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

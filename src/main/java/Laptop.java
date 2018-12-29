@@ -1,19 +1,17 @@
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Table;
+
 
 @Entity
+@Table(name = "laptop")
 public class Laptop {
 
     @Id
     private int lid;
     private String brand;
     private int price;
-    @ManyToOne
-    private Alien alien;
+
 
     public int getLid() {
         return lid;
@@ -39,11 +37,12 @@ public class Laptop {
         this.price = price;
     }
 
-    public Alien getAlien() {
-        return alien;
-    }
-
-    public void setAlien(Alien alien) {
-        this.alien = alien;
+    @Override
+    public String toString() {
+        return "Laptop{" +
+                "lid=" + lid +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

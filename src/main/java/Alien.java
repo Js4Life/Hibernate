@@ -6,8 +6,6 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "alien_table")
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Alien {
 
     @Id
@@ -17,19 +15,14 @@ public class Alien {
 
     private String color;
 
-    public String getColor() {
-        return color;
+    @Override
+    public String toString() {
+        return "Alien{" +
+                "aid=" + aid +
+                ", aname='" + aname + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-
-
-//    @OneToMany(mappedBy = "alien",fetch = FetchType.EAGER)
-//    private Collection<Laptop> laps = new ArrayList<Laptop>();
-
 
     public int getAid() {
         return aid;
@@ -47,11 +40,11 @@ public class Alien {
         this.aname = aname;
     }
 
-//    public Collection<Laptop> getLaps() {
-//        return laps;
-//    }
-//
-//    public void setLaps(Collection<Laptop> laps) {
-//        this.laps = laps;
-//    }
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }
